@@ -1,4 +1,0 @@
-#Tue Feb 25 12:25:15 IST 2020
-base.0=E\:\\Java Project\\In development\\JavaProject\\platforms\\android\\app\\build\\intermediates\\transforms\\dex\\release\\0
-renamed.0=classes.dex
-file.0=E\:\\Java Project\\In development\\JavaProject\\platforms\\android\\app\\build\\intermediates\\transforms\\dex\\release\\0\\classes.dex
