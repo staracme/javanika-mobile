@@ -1,0 +1,68 @@
+<ion-header>
+  <div class="HeaderWrap">
+    <div class="MenuIcon"><a href="JavaScript:;" (click)="openMenu()"><img src="assets/MenuIcon.png"></a></div>
+    <div class="PointsBlock">
+      <span class="PointsHigh">Javanika</span> Entertainments
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div>
+</ion-header>
+
+
+<ion-content style="margin: 60px 0 0 0;">
+  <div class="BookingHead">Order Summary</div>
+
+  <div class="ODBlock">
+    <div class="OBEventName">{{event.event_name}}</div>
+    <div class="OBEVentVenue">{{ event.event_details }}</div>
+    <div class="OBEVentDate">{{  event.event_date  }} | {{  event.event_time  }}</div>
+    <div class="OBEVentTickets">Number of Tickets: <span class="OBEventsTic">{{ event.NoOfSeats  }}</span></div>
+
+    <div class="OBSpace"></div>
+
+    <div class="OBAmt">
+      <div class="OBLeft">Sub-total</div>
+      <div class="OBright">$ {{ event.SubTotal }}</div>
+      <div class="clr"></div>
+    </div>
+
+    
+  
+    <div class="OBAmt" *ngIf="(event.coupon_code != null && event.coupon_code != '')">
+      <div class="OBLeft">Discount ({{ event.coupon_code }}) <a href="JavaScript:;" (click)="removeCoupon(event.couponID)"><b>X</b></a></div>
+      <div class="OBright">$ {{ event.Discount }}</div>
+      <div class="clr"></div>
+    </div>
+
+    <div class="OBAmt" *ngIf="(event.is_processing_fee != null && event.is_processing_fee == true)">
+      <div class="OBLeft">Service Fees</div>
+      <div class="OBright">$ {{ event.processing_fee }}</div>
+      <div class="clr"></div>
+    </div>
+
+
+    <div class="OBAmt">
+      <div class="OBLeft1">Final Total</div>
+      <div class="OBright1">$ {{  event.TotalPrice }}</div>
+      <div class="clr"></div>
+    </div>
+
+  </div>
+
+  <form [formGroup]="form" *ngIf="(event.coupon_code == null || event.coupon_code == '')">
+    <div class="ODBlock">
+      <div class="ODLabel">Do you have discount coupon? Please enter your coupon code below....</div>
+      <div>
+        <input type="text" placeholder="Add Discount Code here" class="OBDictxt" formControlName="coupon_code" [(ngModel)]="coupon_code">
+        <div class="erroremail" *ngIf="form.get('coupon_code').touched && form.get('coupon_code').hasError('required')">
+          Please enter coupon code
+        </div>
+      </div>
+      <div><button (click)="addCoupon()" *ngIf="coupon_loading == false">Add Coupon</button><span *ngIf="coupon_loading == true">Please wait....</span></div>
+    </div>
+  </form>
+</ion-content>
+<ion-footer>
+  <div class="EventFootWrapOD" (click)="goToAddDetailsPage(eventID)">Book Tickets</div>
+</ion-footer>

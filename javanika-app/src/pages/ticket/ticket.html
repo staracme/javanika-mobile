@@ -1,0 +1,68 @@
+<!--
+  Generated template for the TicketPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <div class="HeaderWrap">
+    <div class="MenuIcon"><a href="JavaScript:;" (click)="openMenu()"><img src="assets/MenuIcon.png"></a></div>
+    <div class="PointsBlock">
+      <span class="PointsHigh">Javanika</span> Entertainments
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div>
+</ion-header>
+
+
+
+<ion-content style="margin: 60px 0 0 0;">
+
+  <div class="TicketWrap" *ngIf="ticket != null">
+    <div class="EventName">{{ ticket.event_name }}</div>
+
+    <div>
+      <div class="EventBanner"><img src="{{ ticket.event_banner }}" width="100%" /></div>
+      <div class="EventInfoWrap">
+        <div class="DateTime">
+          Serial No.<br />
+          <span class="High1">{{ ticket.srNo }}</span>
+        </div>
+        <div class="DateTime">
+          Date : Time<br />
+          <span class="High">{{ ticket.event_date }}, {{ ticket.event_time }}</span>
+        </div>
+        <div class="DateTime">
+          Venue<br />
+          <span class="High">{{ ticket.venue_name }}</span>
+        </div>
+
+        <div class="DateTime">
+          Seats<br />
+          <span class="High">{{ ticket.seats }}</span>
+        </div>
+
+        <div class="QRCodeWrap">
+            <img src="{{ ticket.qrCode }}" />
+        </div>
+
+      </div>
+      <div class="clr"></div>
+    </div>
+
+
+    <div class="TNC">
+      <b>Terms & Conditions:</b><br />
+      <ol>
+        <li>All tickets are non-refundable and non-transferable once purchased.</li>
+        <li>You will see a charge from Javanika.com on your credit card statement for this order.</li>
+        <li>Please present a printed copy of this page along with your Photo ID to collect your tickets at the venue.
+          Please do carry a valid Photo ID along with you to the event.</li>
+        <li>In case of cancellation or reschedule of the event you can claim for the refund. but ticket purchased
+          Service Fee is (non-refundable).</li>
+      </ol>
+    </div>
+
+  </div>
+</ion-content>

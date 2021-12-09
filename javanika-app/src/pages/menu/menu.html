@@ -1,0 +1,89 @@
+<ion-header>
+    <div class="HeaderWrap">
+      <div class="MenuIcon"><a href="JavaScript:;" (click)="openMenu()"><img src="assets/MenuIcon.png"></a></div>
+      <div class="PointsBlock">
+        <span class="PointsHigh">Javanika</span> Entertainments
+      </div>
+      <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+  </ion-header>
+
+
+<ion-content style="margin: 60px 0 0 0;">
+   
+    <a>
+      <div class="MenuWrapBlock1SH" (click)="goToPage('JavanikaPage')">
+        <div class="MenuIconSH">
+          <img src="assets/HomeIcon.png" width="30px">
+        </div>
+        <div class="MenuLabelSH">Home</div>
+        <div class="MenuArrowSH">
+          <img src="assets/ArrowIcon.png">
+        </div>
+        <div class="clr"></div>
+      </div>
+    </a>
+  
+ 
+    <a>
+      <div class="MenuWrapBlock1SH" (click)="goToPage('EventspagePage')">
+        <div class="MenuIconSH">
+          <img src="assets/EventsIcon.png" width="30px">
+        </div>
+        <div class="MenuLabelSH">Events</div>
+        <div class="MenuArrowSH">
+          <img src="assets/ArrowIcon.png" >
+        </div>
+        <div class="clr"></div>
+      </div>
+    </a>
+  
+    <a (click)="goToPage('MyBookingsPage')">
+      <div class="MenuWrapBlock1SH">
+        <div class="MenuIconSH">
+          <img src="assets/BookingsIcon.png" width="30px">
+        </div>
+        <div class="MenuLabelSH">My Bookings</div>
+        <div class="MenuArrowSH">
+          <img src="assets/ArrowIcon.png">
+        </div>
+        <div class="clr"></div>
+      </div>
+    </a>
+  
+
+  
+  
+   <a (click)="goToPage('TncPage')">
+      <div class="MenuWrapBlock1SH">
+        <div class="MenuIconSH">
+          <img src="assets/AboutIcon.png" width="30px">
+        </div>
+        <div class="MenuLabelSH">About US</div>
+        <div class="MenuArrowSH">
+          <img src="assets/ArrowIcon.png">
+        </div>
+        <div class="clr"></div>
+      </div>
+    </a>
+   
+    <a (click)="goToPage('AboutusPage')">
+      <div class="MenuWrapBlock1SH">
+        <div class="MenuIconSH">
+          <img src="assets/ContactIcon.png" width="25px">
+        </div>
+        <div class="MenuLabelSH">Contact Us</div>
+        <div class="MenuArrowSH">
+          <img src="assets/ArrowIcon.png">
+        </div>
+        <div class="clr"></div>
+      </div>
+    </a>
+
+
+    <a>
+      <div class="FBBtn"><img src="assets/FacebookIcon.png" width="200px"></div>
+    </a>
+  
+  </ion-content>

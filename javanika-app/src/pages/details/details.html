@@ -1,0 +1,45 @@
+<ion-header>
+  <div class="HeaderWrap">
+    <div class="MenuIcon"><a href="JavaScript:;" (click)="openMenu()"><img src="assets/MenuIcon.png"></a></div>
+    <div class="PointsBlock">
+      <span class="PointsHigh">Javanika</span> Entertainments
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div>
+</ion-header>
+
+
+<ion-content style="margin: 60px 0 0 0;">
+
+  <div class="HomeHeadLabel">Details</div>
+  <form [formGroup]="form">
+    <div class="usernameblock1">Name *
+      <input class="cptxtstyle" type="text"  formControlName="name" [(ngModel)]="name"/>
+      <div class="erroremail" *ngIf="form.get('name').touched && form.get('name').hasError('required')" >
+        Please enter name
+      </div>
+    </div>
+
+    <div class="usernameblock1">Email ID *
+      <input class="cptxtstyle" type="text" formControlName="email" [(ngModel)]="email" />
+      <div class="erroremail" *ngIf="form.get('email').touched && form.get('email').hasError('required')">
+        Please enter email
+      </div>
+      <div class="erroremail" *ngIf="form.get('email').touched && form.get('email').hasError('email')">
+        Please check email id format
+      </div>
+    </div>
+
+    <div class="usernameblock1">Mobile Number *
+      <input class="cptxtstyle" type="text"  formControlName="mobile" [(ngModel)]="mobile" />
+      <div class="erroremail" *ngIf="form.get('mobile').touched && form.get('mobile').hasError('required')">
+        Please enter mobile
+      </div>
+    </div>
+
+    <div class="buttonblockcp">
+      <button class="CPbutton" [disabled]="!form.valid" (click)="addDetails(form)">Proceed</button>
+    </div>
+  </form>
+</ion-content>

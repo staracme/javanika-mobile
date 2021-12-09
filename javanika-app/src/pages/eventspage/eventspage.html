@@ -1,0 +1,55 @@
+<ion-header>
+  <div class="HeaderWrap">
+    <div class="MenuIcon"><a href="JavaScript:;" (click)="openMenu()"><img src="assets/MenuIcon.png"></a></div>
+    <div class="PointsBlock">
+      <span class="PointsHigh">Javanika</span> Entertainments
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div>
+</ion-header>
+
+
+<ion-content style="margin: 60px 0 0 0;">
+  <div class="EventsBlock" *ngIf="isComingFromMenu || viewMore == 'upcoming'">
+
+    <div>
+      <div class="EventsHomeHead">Upcoming Events</div>
+     
+      <div class="clr"></div>
+    </div>
+    <div class="EventsSlider">
+      <div class="EventsThumbWrap" *ngFor="let e of upcoming_events">
+        <a class="EventBlocka" href="JavaScript:;" (click)="goToEvents(e.EventID)">
+          <img src="{{ e.image  }}" width="100%" />
+          <div class="EventDetHome">
+            <div class="EventNameHome">{{ e.EventName}}</div>
+            <div class="EventDateHome">Dated: {{ e.EventDate }}</div>
+          </div>
+        </a>
+      </div>
+      <div class="clr"></div>
+    </div>
+  </div>
+
+  <div class="EventsBlock" *ngIf="isComingFromMenu || viewMore == 'past'">
+
+    <div>
+      <div class="EventsHomeHead">Past Events</div>
+     
+      <div class="clr"></div>
+    </div>
+    <div class="EventsSlider">
+      <div class="EventsThumbWrap" *ngFor="let e of past_events">
+        <a class="EventBlocka" href="JavaScript:;" (click)="goToEvents(e.EventID)">
+          <img src="{{ e.image  }}" width="100%" />
+          <div class="EventDetHome">
+            <div class="EventNameHome">{{ e.EventName}}</div>
+            <div class="EventDateHome">Dated: {{ e.EventDate }}</div>
+          </div>
+        </a>
+      </div>
+      <div class="clr"></div>
+    </div>
+  </div>
+</ion-content>

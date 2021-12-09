@@ -1,0 +1,60 @@
+<ion-header>
+  <div class="HeaderWrap">
+    <div class="MenuIcon"><a href="JavaScript:;" (click)="openMenu()"><img src="assets/MenuIcon.png"></a></div>
+    <div class="PointsBlock">
+      <span class="PointsHigh">Javanika</span> Entertainments
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div>
+</ion-header>
+
+
+
+<ion-content style="margin: 60px 0 0 0;">
+
+  
+
+  <div class="SliderWrap">
+    <div><img src="{{  event.Banner }}" width="100%" /></div>
+  </div>
+  <div class="EventHead">{{ event.EventName }}</div>
+
+  <div class="EventLabel1">
+    <span>{{ event.EventType }}</span> | <span>Age : {{ event.AgeGroup }}</span> | <span>{{ event.EventPlayTime  }}</span>
+  </div>
+
+  <div class="EventLabel2">
+      <span>{{  event.EventDate    }} at {{  event.ShowTime  }}</span> | <span>${{ event.Price }} Onwards</span>
+    </div>
+
+  <div>
+    <div class="EvtBlock">
+      <div class="Symbol"><img src="assets/VenueSymbol.png" width="20px"></div>
+      <div class="Locat">{{ event.VenueName  }}</div>
+      <div class="clr"></div>
+    </div>
+  </div>
+
+  <div class="EventDesc">
+
+    <div class="EveDecHead">Event Description</div>
+
+    <div [innerHTML]="event.Description"></div>
+  </div>
+
+  <div class="EventArtistWrap">
+    <div>Artists</div>
+    <div *ngFor="let a of event.Artists">
+        <div class="ArtistBlock"><img src="{{ a.Image }}"  /><div class="ArtName">{{ a.ArtistName }}</div></div>
+    </div>
+    <div class="clr"></div>
+  </div>
+<div>
+  <br> <br> <br> <br> <br><br>
+</div>
+</ion-content>
+
+<ion-footer >
+  <div class="EventFootWrap" (click)="goToVenue()">Book Tickets</div>
+</ion-footer>

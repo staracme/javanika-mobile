@@ -1,0 +1,113 @@
+<ion-header>
+  <div class="HeaderWrap">
+    <div class="MenuIcon"><a href="JavaScript:;" (click)="openMenu()"><img src="assets/MenuIcon.png"></a></div>
+    <div class="PointsBlock">
+      <span class="PointsHigh">Javanika</span> Entertainments
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div>
+</ion-header>
+
+
+<ion-content>
+
+  <div class="EventHead">Hellaro</div>
+  <div class="EventHead">{{ event_name }}</div>
+  <div class="EventLabel2">
+    <span>Show time : {{event_date}}</span>
+  </div>
+<br>
+  <div >
+    <div>
+      <div class="Screen">Screen this side</div>
+      <div>
+        <div class="Drag1">Drag towards right to view seats</div>
+        <div class="Drag2"><img src="assets/DragArrow.png" width="20px" ></div>
+        <div class="clr"></div>
+      </div>
+    </div>
+    <ol id="V7B1" class="cabin fuselage" *ngIf="block1 != null">
+      <li class="row" *ngFor="let r of block1.SeatRows">
+        <ol class="seats" type="A">
+          <li class="seat" *ngFor="let s of r.Seats">
+            <input type="checkbox" id="{{s.SeatNumber}}" class="chkSeats" value="{{s.SeatID}}"
+              (change)="selectSeat($event,s.SeatID, eventID)" [disabled]="s.isBooked" *ngIf="s.Status == 'PRESENT'" />
+            <label for="{{s.SeatNumber}}" *ngIf="s.Status == 'PRESENT'">{{s.SeatNumber}}</label>
+          </li>
+        </ol>
+      </li>
+    </ol>
+    <br />
+    <ol id="V7B2" class="cabin fuselage" *ngIf="block2 != null">
+      <li class="row" *ngFor="let r of block2.SeatRows">
+        <ol class="seats" type="A">
+          <li class="seat" *ngFor="let s of r.Seats">
+            <input type="checkbox" id="{{s.SeatNumber}}" class="chkSeats" value="{{s.SeatID}}"
+              (change)="selectSeat($event,s.SeatID, eventID)" [disabled]="s.isBooked" *ngIf="s.Status == 'PRESENT'" />
+            <label for="{{s.SeatNumber}}" *ngIf="s.Status == 'PRESENT'">{{s.SeatNumber}}</label>
+          </li>
+        </ol>
+      </li>
+    </ol>
+    <br />
+    <ol id="V7B3" class="cabin fuselage" *ngIf="block3 != null">
+      <li class="row" *ngFor="let r of block3.SeatRows">
+        <ol class="seats" type="A">
+          <li class="seat" *ngFor="let s of r.Seats">
+            <input type="checkbox" id="{{s.SeatNumber}}" class="chkSeats" value="{{s.SeatID}}"
+              (change)="selectSeat($event,s.SeatID, eventID)" [disabled]="s.isBooked" *ngIf="s.Status == 'PRESENT'" />
+            <label for="{{s.SeatNumber}}" *ngIf="s.Status == 'PRESENT'">{{s.SeatNumber}}</label>
+          </li>
+        </ol>
+      </li>
+    </ol>
+    <br />
+    <ol id="V7B4" class="cabin fuselage" *ngIf="block4 != null">
+      <li class="row" *ngFor="let r of block4.SeatRows">
+        <ol class="seats" type="A">
+          <li class="seat" *ngFor="let s of r.Seats">
+            <input type="checkbox" id="{{s.SeatNumber}}" class="chkSeats" value="{{s.SeatID}}"
+              (change)="selectSeat($event,s.SeatID, eventID)" [disabled]="s.isBooked" *ngIf="s.Status == 'PRESENT'" />
+            <label for="{{s.SeatNumber}}" *ngIf="s.Status == 'PRESENT'">{{s.SeatNumber}}</label>
+          </li>
+        </ol>
+      </li>
+    </ol>
+    <br>
+    <ol id="V7B5" class="cabin fuselage" *ngIf="block5 != null">
+      <li class="row" *ngFor="let r of block5.SeatRows">
+        <ol class="seats" type="A">
+          <li class="seat" *ngFor="let s of r.Seats">
+            <input type="checkbox" id="{{s.SeatNumber}}" class="chkSeats" value="{{s.SeatID}}"
+              (change)="selectSeat($event,s.SeatID, eventID)" [disabled]="s.isBooked" *ngIf="s.Status == 'PRESENT'" />
+            <label for="{{s.SeatNumber}}" *ngIf="s.Status == 'PRESENT'">{{s.SeatNumber}}</label>
+          </li>
+        </ol>
+      </li>
+    </ol>
+  <br> <br> <br><br> <br> <br>
+  <div class="EventFootWrap1" *ngIf="seat_summary !=null">
+    <table class="TierTbl" border="1">
+      <tr>
+        <th>Total Seats</th>
+        <th>Total Cost</th>
+      </tr>
+      <tbody id="tbody">
+        <tr>
+          <td colspan="2" class="TierClass" *ngIf="seat_summary.NoOfSeats == 0">No Bookings Yet</td>
+          <td class="TierClass"  *ngIf="seat_summary.NoOfSeats > 0">{{ seat_summary.NoOfSeats }}</td>
+          <td class="TierClass"  *ngIf="seat_summary.NoOfSeats > 0">{{ seat_summary.TotalPrice }}</td>
+        </tr>
+      </tbody>
+    </table>   
+  </div>  
+</div>
+</ion-content>
+<ion-footer>
+  <div class="EventFootWrap"  (click)="proceedToBooking(eventID)">Confirm Booking</div>
+</ion-footer>
+
+ 
+
+

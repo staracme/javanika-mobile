@@ -1,0 +1,75 @@
+<ion-header>
+  <div class="HeaderWrap">
+    <div class="MenuIcon"><a href="JavaScript:;" (click)="openMenu()"><img src="assets/MenuIcon.png"></a></div>
+    <div class="PointsBlock">
+      <span class="PointsHigh">Javanika</span> Entertainments
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div>
+</ion-header>
+
+
+
+<ion-content style="margin: 60px 0 0 0;">
+
+  <div class="HomeHead">Welcome to Javanika Entertainments</div>
+
+  <div class="SliderWrap">
+    <ion-slides pager="true" autoplay="2000" loop="true" speed="600" *ngIf="current_events.length > 0">
+      <ion-slide  *ngFor="let b of current_events">
+        <img [src]=b.SliderImage />
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <div class="EventsBlock">
+
+    <div>
+      <div class="EventsHomeHead">Upcoming Events</div>
+      <div class="EventMoreBtnWrap"><button class="EventMoreBtn" (click)="viewMore('upcoming')">View More</button></div>
+      <div class="clr"></div>
+    </div>
+    <div class="EventsSlider">
+      <div class="EventsThumbWrap" *ngFor="let e of current_events">
+        <a class="EventBlocka" href="JavaScript:;" (click)="goToEvents(e.EventID)">
+          <img src="{{ e.image  }}" width="100%" />
+          <div class="EventDetHome">
+            <div class="EventNameHome">{{ e.EventName}}</div>
+            <div class="EventDateHome">Dated: {{ e.EventDate }}</div>
+          </div>
+        </a>
+      </div>
+      <div class="clr"></div>
+    </div>
+  </div>
+
+  <div class="Space"></div>
+
+  <div class="EventsBlock">
+
+    <div>
+      <div class="EventsHomeHead">Past Events</div>
+      <div class="EventMoreBtnWrap"><button class="EventMoreBtn" (click)="viewMore('past')">View More</button></div>
+      <div class="clr"></div>
+    </div>
+
+    <div class="EventsSlider">
+      <div class="EventsThumbWrap" *ngFor="let e of past_events">
+        <a class="EventBlocka" href="JavaScript:;" (click)="goToEvents(e.EventID)">
+          <img src="{{ e.image  }}" width="100%" />
+          <div class="EventDetHome">
+            <div class="EventNameHome">{{ e.EventName }}</div>
+            <div class="EventDateHome">Dated: {{ e.EventDate }}</div>
+          </div>
+        </a>
+      </div>
+      <div class="clr"></div>
+    </div>
+  </div>
+
+  <div class="MainFooterWrap">
+    Copyright at Javanika Entertainment<br>
+
+  </div>
+</ion-content>

@@ -1,0 +1,30 @@
+<ion-header>
+    <div class="HeaderWrap">
+      <div class="MenuIcon"><a href="JavaScript:;" (click)="openMenu()"><img src="assets/MenuIcon.png"></a></div>
+      <div class="PointsBlock">
+        <span class="PointsHigh">Javanika</span> Entertainments
+      </div>
+      <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+</ion-header>
+
+
+<ion-content style="margin: 60px 0 0 0;">
+
+    <div class="HomeHeadLabel">My Bookings</div>
+
+
+    <div class="MBLabel" *ngIf="otp_process == 'pending'">
+      Please validate your credentials....
+      <div class="MBInp"><input type="text" class="MBTxt" [disabled]="mode == 'otp'" [(ngModel)]="otp.email" placeholder="Enter your Email ID"><br><span *ngIf="mode == 'email'"><input type="button" value="Submit" (click)="generateOTP();" *ngIf="otp_loading == false" /></span><span *ngIf="otp_loading == true" >Please wait....</span></div>
+      <div class="MBInp"  *ngIf="mode == 'otp'"><input type="text" class="MBTxt" [(ngModel)]="otp.otp" placeholder="Enter OTP"><br><span><input type="button" value="Submit" (click)="getOrders();" *ngIf="otp_gen_loader == false" /></span><span *ngIf="otp_gen_loader == true">Please wait....</span></div>
+    </div>
+
+    <div class="MBWrap" *ngFor="let o of my_orders">
+      <div class="MBName">{{o.event_name}}</div>
+      <div class="MBLocation">{{o.venue_name}}</div>
+      <div class="MBDate">{{ o.event_date }} | {{ o.event_time }}</div>
+      <div class="MBClick"><a class="MBLink" (click)="getTicket(o.orderID)">View Ticket</a></div>
+    </div>
+</ion-content>
