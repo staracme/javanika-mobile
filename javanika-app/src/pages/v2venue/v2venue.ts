@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController  } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, Content } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { Device } from '@ionic-native/device';
 import { CommonProvider } from '../../providers/common/common';
+
 /**
  * Generated class for the V2venuePage page.
  *
@@ -27,12 +28,21 @@ export class V2venuePage {
   selected_seats = [];
   event_name = "";
   event_date = "";
+  showTicketTable: boolean = false;
+  @ViewChild(Content) content: Content;
   constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient, private device: Device, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private common: CommonProvider) {
   }
 
   ionViewDidLoad() {
     this.eventID = this.navParams.get('eventID');
     this.getSeats(this.eventID);
+  }
+
+  onPageScroll(event) {
+    let x = event.target.scrollLeft;
+    let y = event.target.scrollTop;
+    let content = document.getElementById("app-inner");
+    content.style.transform = "translate(" + x + "px," + y + "px);";
   }
 
   ionViewWillLeave() {
@@ -46,19 +56,30 @@ export class V2venuePage {
   }
 
   getSeats(eventID) {
-    this.http.post(this.common.apiURL +'/v2Venue', { eventID: eventID }).subscribe((data: any) => {
+    let loading = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: 'Loading...',
+      enableBackdropDismiss: false
+    });
+
+    loading.present();
+
+    this.http.post(this.common.apiURL + '/v2Venue', { eventID: eventID }).subscribe((data: any) => {
       this.block1 = data.block1;
       this.block2 = data.block2;
       this.block3 = data.block3;
       this.block4 = data.block4;
       this.block5 = data.block5;
+      setTimeout(() => {
+        loading.dismiss();
+      }, 1000);
     });
   }
 
   selectSeat(event, seatID) {
     if (event.currentTarget.checked) {
       let postData = {
-        "uuid": this.device.uuid,
+        "uuid": "unique-device-id", //this.device.uuid,
         "seatID": seatID,
         "eventID": this.eventID
       };
@@ -97,7 +118,7 @@ export class V2venuePage {
   addSeat(seatID, eventID) {
 
     let postData = {
-      "uuid": this.device.uuid,
+      "uuid": "unique-device-id", //this.device.uuid,
       "seatID": seatID,
       "eventID": this.eventID
     }
@@ -108,12 +129,19 @@ export class V2venuePage {
   }
 
   removeSeat(seatID) {
-    this.http.post(this.common.apiURL + '/RemoveSeat', { eventID: this.eventID, uuid: this.device.uuid, seatID: seatID }).subscribe((data: any) => {
+    this.http.post(this.common.apiURL + '/RemoveSeat', { 
+      eventID: this.eventID, 
+      uuid: "unique-device-id", //this.device.uuid, 
+      seatID: seatID }).subscribe((data: any) => {
       this.seat_summary = data;
     });
   }
 
   openMenu() {
     this.navCtrl.push('JavanikaPage')
+  }
+
+  toggleTicketTable() {
+    this.showTicketTable = !this.showTicketTable;
   }
 }

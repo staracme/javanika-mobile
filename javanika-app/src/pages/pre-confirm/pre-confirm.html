@@ -1,0 +1,55 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>pre-confirm</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="summary-table">
+    <table class="TierTbl" border="1">
+      <tbody id="tbody">
+        <tr>
+          <td class="row-header">Total Seats</td>
+          <td class="TierClass" *ngIf="seat_summary != null && seat_summary.NoOfSeats > 0">{{
+            seat_summary.NoOfSeats }}
+          </td>
+        </tr>
+        <tr>
+          <td class="row-header">Total Cost</td>
+          <td class="TierClass" *ngIf="seat_summary != null && seat_summary.NoOfSeats > 0">${{
+            seat_summary.TotalPrice }}
+          </td>
+        </tr>
+        <tr *ngIf="seat_summary != null && seat_summary.NoOfSeats == 0">
+          <td rowspan="2" class="TierClass">No Bookings Yet
+          </td>
+        </tr>
+        <!-- <tr>
+      <td class="TierClass" *ngIf="seat_summary != null && seat_summary.NoOfSeats > 0">{{ seat_summary.NoOfSeats }}
+      </td>
+    </tr> -->
+      </tbody>
+    </table>
+  </div>
+
+  <form [formGroup]="form">
+    <div class="ODBlock">
+      <div class="ODLabel">Do you have discount coupon? Please enter your coupon code below....</div>
+      <div>
+        <input type="text" placeholder="Add Discount Code here" class="OBDictxt" formControlName="coupon_code" [(ngModel)]="coupon_code">
+        <div class="erroremail" *ngIf="form.get('coupon_code').touched && form.get('coupon_code').hasError('required')">
+          Please enter coupon code
+        </div>
+      </div>
+      <div *ngIf="coupon_loading == false && !isCouponApplied"><button (click)="addCoupon()">Add Coupon</button><span *ngIf="coupon_loading == true">Please wait....</span></div>
+      <div *ngIf="coupon_loading == false && isCouponApplied"><button (click)="removeCoupon()">Remove Coupon</button><span *ngIf="coupon_loading == true">Please wait....</span></div>
+    </div>
+  </form>
+</ion-content>
+
+<div class="EventFootWrap1">
+  <div class="CnfBook" (click)="proceedToBooking(eventID)">Confirm Booking</div>
+</div>

@@ -1,0 +1,128 @@
+<ion-header>
+  <div class="HeaderWrap">
+    <div class="MenuIcon"><a href="JavaScript:;" (click)="openMenu()"><img src="assets/MenuIcon.png"></a></div>
+    <div class="PointsBlock">
+      <span class="PointsHigh">Javanika</span> Entertainments
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div>
+</ion-header>
+
+
+<ion-content>
+  <div class="layout">
+    <div class="layoutContainer">
+      <!-- <div id="grid" class="row">
+      <div class="grid-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTFtEkkDutIFUlZ6a6HzsOJgkyD_TSzYZWlg&usqp=CAU"
+          alt="" title="Image 1">
+      </div>
+      <div class="grid-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKjc5Iv1BvYkz75jIvIsG8ij8CYl3tWQoY0w&usqp=CAU"
+          alt="" title="Image 2">
+      </div>
+      <div class="grid-item">
+        <img src="https://i.pinimg.com/736x/e8/1f/32/e81f32f6552e1f7dbed73f44fb54a32f.jpg" alt="" title="Image 3">
+      </div>
+      <div class="grid-item">
+        <img
+          src="https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+          alt="" title="Image 4">
+      </div>
+      <div class="grid-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI-iMujHJajBf5eQmhcriRkx9dNxbFYq_YsA&usqp=CAU"
+          alt="" title="Image 6">
+      </div>
+      <div class="grid-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQNX4cAmKYy9O4rDHh0HaRxLh7ZEG4HquQ8A&usqp=CAU"
+          alt="" title="Image 5">
+      </div>
+      <div class="grid-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTFtEkkDutIFUlZ6a6HzsOJgkyD_TSzYZWlg&usqp=CAU"
+          alt="" title="Image 1">
+      </div>
+      <div class="grid-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKjc5Iv1BvYkz75jIvIsG8ij8CYl3tWQoY0w&usqp=CAU"
+          alt="" title="Image 2">
+      </div>
+      <div class="grid-item">
+        <img src="https://i.pinimg.com/736x/e8/1f/32/e81f32f6552e1f7dbed73f44fb54a32f.jpg" alt="" title="Image 3">
+      </div>
+      <div class="grid-item">
+        <img
+          src="https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+          alt="" title="Image 4">
+      </div>
+      <div class="grid-item">
+      </div>
+      <div class="grid-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI-iMujHJajBf5eQmhcriRkx9dNxbFYq_YsA&usqp=CAU"
+          alt="" title="Image 6">
+      </div>
+      <div class="grid-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQNX4cAmKYy9O4rDHh0HaRxLh7ZEG4HquQ8A&usqp=CAU"
+          alt="" title="Image 5">
+      </div>
+      <div class="grid-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTFtEkkDutIFUlZ6a6HzsOJgkyD_TSzYZWlg&usqp=CAU"
+          alt="" title="Image 1">
+      </div>
+      <div class="grid-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKjc5Iv1BvYkz75jIvIsG8ij8CYl3tWQoY0w&usqp=CAU"
+          alt="" title="Image 2">
+      </div>
+      <div class="grid-item">
+        <img src="https://i.pinimg.com/736x/e8/1f/32/e81f32f6552e1f7dbed73f44fb54a32f.jpg" alt="" title="Image 3">
+      </div>
+      <div class="grid-item">
+        <img
+          src="https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+          alt="" title="Image 4">
+      </div>
+      <div class="grid-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI-iMujHJajBf5eQmhcriRkx9dNxbFYq_YsA&usqp=CAU"
+          alt="" title="Image 6">
+      </div>
+      <div class="grid-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQNX4cAmKYy9O4rDHh0HaRxLh7ZEG4HquQ8A&usqp=CAU"
+          alt="" title="Image 5">
+      </div>
+    </div> -->
+      <!-- <div id="grid" class="row">
+        <div class="grid-item" *ngFor="let ev of pastEventImages">
+          <img id="comment-this-img" *ngIf="ev.ImageType != 'video/mp4'" src="
+            http://localhost:2745/PastEventImages/{{ev.EventID}}/{{ev.ImagePath}}" alt="" title="Image 1">
+          <img *ngIf="ev.ImageType != 'video/mp4'" [src]="getImageUrl(ev)" alt="" title="Image 1">
+          <video *ngIf="ev.ImageType == 'video/mp4'" controls>
+            <source src="http://localhost:2745/PastEventImages/{{ev.EventID}}/{{ev.ImagePath}}" type="video/mp4" />
+          </video>
+        </div>
+      </div> -->
+      <div class="masonry" *ngIf="!showImage">
+        <div class="brick" *ngFor="let ev of pastEventImages">
+          <div *ngIf="ev.ImageType != 'video/mp4'" class="articleimage grid-item clear-both">
+            <img (click)="viewImage(ev)" [src]="getImageUrl(ev)" alt="" title="Image 1">
+          </div>
+          <div *ngIf="ev.ImageType == 'video/mp4'" class="articleimage grid-item clear-both">
+            <video controls>
+              <source src="http://localhost:2745/PastEventImages/{{ev.EventID}}/{{ev.ImagePath}}" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      </div>
+      <div class="image" *ngIf="showImage">
+        <ion-slides>
+          <ion-slide>
+            <div *ngIf="imgUrl">
+              <img [src]="imgUrl" alt="">
+            </div>
+            <div class="back">
+              <button class="btn btn-primary w100" (click)="showGallery()">Back</button>
+            </div>
+          </ion-slide>
+        </ion-slides>
+      </div>
+    </div>
+  </div>
+</ion-content>

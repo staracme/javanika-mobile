@@ -13,6 +13,10 @@
 <ion-content style="margin: 60px 0 0 0;">
   <div class="BookingHead">Order Summary</div>
 
+  <div class="earlyBirdDiscount" *ngIf="event.isEarlyBird==1">
+    You are eligible for  Early Bird Discount
+  </div>
+
   <div class="ODBlock">
     <div class="OBEventName">{{event.event_name}}</div>
     <div class="OBEVentVenue">{{ event.event_details }}</div>
@@ -27,7 +31,17 @@
       <div class="clr"></div>
     </div>
 
-    
+    <div class="OBAmt">
+      <div class="OBLeft">Discounted Amount</div>
+      <div class="OBright">- $ {{ event.discountedAmount }}</div>
+      <div class="clr"></div>
+    </div>
+
+    <div class="OBAmt">
+      <div class="OBLeft">Amount after discount</div>
+      <div class="OBright">$ {{ event.SubTotal - event.discountedAmount }}</div>
+      <div class="clr"></div>
+    </div>
   
     <div class="OBAmt" *ngIf="(event.coupon_code != null && event.coupon_code != '')">
       <div class="OBLeft">Discount ({{ event.coupon_code }}) <a href="JavaScript:;" (click)="removeCoupon(event.couponID)"><b>X</b></a></div>

@@ -18,6 +18,7 @@ export class EventsPage {
   event = {};
   seatingChart = '';
   eventID: number = 0;
+  isPastEvent: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient, private common: CommonProvider, private loadingCtrl: LoadingController) {
   }
 
@@ -40,15 +41,19 @@ export class EventsPage {
       this.event = data;
       this.seatingChart = data.SeatingChart;
       this.eventID = data.EventID;
-
+      this.isPastEvent = data.isPastEvent;
       loading.dismiss();
     });
   }
 
   goToVenue() {
-    this.navCtrl.push(this.seatingChart, { eventID: this.eventID });
+    this.navCtrl.push(this.seatingChart, { eventID: this.eventID, seatingChart: this.seatingChart });
   }
+  
 
+  goBack() {
+    this.navCtrl.push('JavanikaPage');
+  }
   openMenu() {
     this.navCtrl.push('MenuPage')
   }

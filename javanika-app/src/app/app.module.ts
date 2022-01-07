@@ -11,6 +11,8 @@ import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal
 import { CommonProvider } from '../providers/common/common';
 import { AppVersion } from '@ionic-native/app-version';
 
+import { NgxMasonryModule } from 'ngx-masonry';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -19,7 +21,8 @@ import { AppVersion } from '@ionic-native/app-version';
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    NgxMasonryModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

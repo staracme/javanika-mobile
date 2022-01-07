@@ -1,3 +1,13 @@
+<!-- <ion-header>
+  <ion-toolbar class="header-bg">
+    <button ion-button menuToggle (click)="openMenu()" >
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <div class="logo-txt">
+      <div class="PointsHigh">Javanika</div> Entertainments
+    </div>
+  </ion-toolbar>
+</ion-header> -->
 <ion-header>
   <div class="HeaderWrap">
     <div class="MenuIcon"><a href="JavaScript:;" (click)="openMenu()"><img src="assets/MenuIcon.png"></a></div>
@@ -11,13 +21,13 @@
 
 
 
-<ion-content style="margin: 60px 0 0 0;">
+<ion-content>
 
   <div class="HomeHead">Welcome to Javanika Entertainments</div>
 
   <div class="SliderWrap">
     <ion-slides pager="true" autoplay="2000" loop="true" speed="600" *ngIf="current_events.length > 0">
-      <ion-slide  *ngFor="let b of current_events">
+      <ion-slide *ngFor="let b of current_events">
         <img [src]=b.SliderImage />
       </ion-slide>
     </ion-slides>

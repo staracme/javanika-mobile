@@ -1,0 +1,32 @@
+<ion-header>
+  <div class="HeaderWrap">
+    <div class="MenuIcon"><a href="JavaScript:;" (click)="openMenu()"><img src="assets/MenuIcon.png"></a></div>
+    <div class="PointsBlock">
+      <span class="PointsHigh">Javanika</span> Entertainments
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div>
+</ion-header>
+
+
+<ion-content padding>
+  <div id="grid" class="row" *ngIf="events.length > 0">
+    <div class="cardContainer" *ngFor="let ev of events">
+      <div class="card">
+        <div class="card-body text-center">
+          <div class="img-holder">
+            <img class="img-responsive" src="{{viewImagePath}}/EventBanners/{{ev.EventBanner}}" />
+          </div>
+          <div class="card-content">
+            <h4 class="ellipsis" [title]="ev.EventName">{{ev.EventName}}</h4>
+            <p>{{ev.EventType}}</p>
+            <p *ngIf="ev.VenueName">{{ev.VenueName}}</p>
+            <p>{{ev.EventDate | date:'shortDate'}}</p>
+            <button class="btn btn-primary" (click)="viewGallery(ev.EventID)">View Gallery</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

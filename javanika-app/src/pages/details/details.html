@@ -39,7 +39,8 @@
     </div>
 
     <div class="buttonblockcp">
-      <button class="CPbutton" [disabled]="!form.valid" (click)="addDetails(form)">Proceed</button>
+      <!-- <button class="CPbutton" [disabled]="!form.valid" (click)="addDetails(form)">Proceed</button> -->
+      <button class="CPbutton" [disabled]="!form.valid" (click)="overridePP(form)">overridePP</button>
     </div>
   </form>
 </ion-content>

@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Device } from '@ionic-native/device';
-import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal';
+import { AlertController, IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { CommonProvider } from '../../providers/common/common';
-import { FormControl, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+
 /**
- * Generated class for the BookingSummaryPage page.
+ * Generated class for the PreConfirmPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -14,20 +14,33 @@ import { FormControl, FormGroup, Validators, ValidatorFn, AbstractControl } from
 
 @IonicPage()
 @Component({
-  selector: 'page-booking-summary',
-  templateUrl: 'booking-summary.html',
+  selector: 'page-pre-confirm',
+  templateUrl: 'pre-confirm.html',
 })
-export class BookingSummaryPage {
-  seat_summary = {};
+export class PreConfirmPage {
   eventID = 0;
-  uuid = '';
-  event = {};
+  selected_seats: any;
+  selectedSeatsNos: any;
+  seat_summary: any;
+
   isProceedToBook = false;
+
   form: FormGroup;
   coupon_code = "";
   coupon_loading = false;
+  isCouponApplied: boolean = false;
+
   seatingChart: string = "";
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient, private device: Device, private payPal: PayPal, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private common: CommonProvider) {
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public http: HttpClient,
+    private device: Device,
+    private alertCtrl: AlertController,
+    private loadingCtrl: LoadingController,
+    private common: CommonProvider
+  ) {
     this.form = new FormGroup({
       coupon_code: new FormControl('', [Validators.required]),
     });
@@ -35,12 +48,10 @@ export class BookingSummaryPage {
 
   ionViewDidLoad() {
     this.eventID = this.navParams.get('eventID');
+    this.selected_seats = this.navParams.get('selected_seats');
+    this.selectedSeatsNos = this.navParams.get('selectedSeatsNos');
+    this.seat_summary = this.navParams.get('seat_summary');
     this.seatingChart = this.navParams.get('seatingChart');
-
-    this.getOrderSummary({
-      eventID: this.eventID,
-      sessionID: "unique-device-id" //this.device.uuid
-    });
   }
 
   ionViewCanLeave(): Promise<boolean> {
@@ -88,104 +99,80 @@ export class BookingSummaryPage {
     });
   }
 
-  getOrderSummary(data) {
-    let loading = this.loadingCtrl.create({
-      spinner: 'crescent',
-      content: 'Loading...',
-      enableBackdropDismiss: false
-    });
-
-    loading.present();
-
-    this.http.post(this.common.apiURL + '/OrderSummary', data).subscribe((data: any) => {
-      this.event = data;
-      loading.dismiss();
-    });
-  }
-
-  goToAddDetailsPage() {
-    this.isProceedToBook = true;
-    this.common.isProceedToBook = true;
-    this.navCtrl.push('DetailsPage', { eventID: this.eventID, orderSummaryData: this.event });
-  }
-
-  openMenu() {
-    this.navCtrl.push('JavanikaPage')
-  }
-
   addCoupon(data) {
 
     this.coupon_loading = true;
 
-    if(this.coupon_code != '') {
+    if (this.coupon_code != '') {
 
-        this.http.post(this.common.apiURL + '/AddDiscountCoupon', {
-          sessionID: "unique-device-id", //this.device.uuid,
-          eventID: this.eventID,
-          coupon_code: this.coupon_code
-        }).subscribe((data: any) => {
-          if (data.status == "OK") {
-            this.getOrderSummary({
-              sessionID: "unique-device-id",//this.device.uuid,
-              eventID: this.eventID
-            });
+      this.http.post(this.common.apiURL + '/AddDiscountCoupon', {
+        sessionID: "unique-device-id", //this.device.uuid,
+        eventID: this.eventID,
+        coupon_code: this.coupon_code
+      }).subscribe((data: any) => {
+        if (data.status == "OK") {
+          // this.getOrderSummary({
+          //   sessionID: "unique-device-id",//this.device.uuid,
+          //   eventID: this.eventID
+          // });
+          this.isCouponApplied = true;
+          this.coupon_loading = false;
+          this.coupon_code = "";
+          this.form.reset();
+        }
+        else if (data.status == "USED") {
 
-            this.coupon_loading = false;
-            this.coupon_code = "";
-          }
-          else if (data.status == "USED") {
-
-            let alert = this.alertCtrl.create({
-              title: '',
-              message: "<center>" + data.errorMessage + "</center>",
-              enableBackdropDismiss: false,
-              buttons: [
-                {
-                  text: 'OK',
-                  handler: () => {
-                    this.coupon_loading = false;
-                  }
+          let alert = this.alertCtrl.create({
+            title: '',
+            message: "<center>" + data.errorMessage + "</center>",
+            enableBackdropDismiss: false,
+            buttons: [
+              {
+                text: 'OK',
+                handler: () => {
+                  this.coupon_loading = false;
                 }
-              ]
-            });
+              }
+            ]
+          });
 
-            alert.present();
-          }
-          else if (data.status == "NOT APPLICABLE") {
+          alert.present();
+        }
+        else if (data.status == "NOT APPLICABLE") {
 
-            let alert = this.alertCtrl.create({
-              title: '',
-              message: "<center>" + data.errorMessage + "</center>",
-              enableBackdropDismiss: false,
-              buttons: [
-                {
-                  text: 'OK',
-                  handler: () => {
-                    this.coupon_loading = false;
-                  }
+          let alert = this.alertCtrl.create({
+            title: '',
+            message: "<center>" + data.errorMessage + "</center>",
+            enableBackdropDismiss: false,
+            buttons: [
+              {
+                text: 'OK',
+                handler: () => {
+                  this.coupon_loading = false;
                 }
-              ]
-            });
+              }
+            ]
+          });
 
-            alert.present();
-          }
-          else if (data.status == "INVALID") {
-            let alert = this.alertCtrl.create({
-              title: '',
-              message: "<center>" + data.errorMessage + "</center>",
-              enableBackdropDismiss: false,
-              buttons: [
-                {
-                  text: 'OK',
-                  handler: () => {
-                    this.coupon_loading = false;
-                  }
+          alert.present();
+        }
+        else if (data.status == "INVALID") {
+          let alert = this.alertCtrl.create({
+            title: '',
+            message: "<center>" + data.errorMessage + "</center>",
+            enableBackdropDismiss: false,
+            buttons: [
+              {
+                text: 'OK',
+                handler: () => {
+                  this.coupon_loading = false;
                 }
-              ]
-            });
-            alert.present();
-          }
-        });
+              }
+            ]
+          });
+          alert.present();
+        }
+      });
     }
     else {
       let alert = this.alertCtrl.create({
@@ -214,7 +201,7 @@ export class BookingSummaryPage {
         {
           text: 'OK',
           handler: () => {
-            
+
             this.http.post(this.common.apiURL + '/RemoveDiscountCoupon', {
               sessionID: this.device.uuid,
               eventID: this.eventID,
@@ -229,10 +216,14 @@ export class BookingSummaryPage {
                     {
                       text: 'OK',
                       handler: () => {
-                        this.getOrderSummary({
-                          sessionID: this.device.uuid,
-                          eventID: this.eventID
-                        });
+                        // this.getOrderSummary({
+                        //   sessionID: this.device.uuid,
+                        //   eventID: this.eventID
+                        // });
+                        this.isCouponApplied = false;
+                        this.coupon_loading = false;
+                        this.coupon_code = "";
+                        this.form.reset();
                       }
                     }
                   ]
@@ -240,7 +231,7 @@ export class BookingSummaryPage {
                 alert.present();
               }
               else if (data.status == "ERROR") {
-        
+
                 let alert = this.alertCtrl.create({
                   title: '',
                   message: "<center>Sorry, Something went wrong. Please try again after sometime.</center>",
@@ -262,4 +253,19 @@ export class BookingSummaryPage {
     });
     conf_alert.present();
   }
+
+  proceedToBooking(eventID) {
+    if (this.selected_seats.length > 0) {
+      this.isProceedToBook = true;
+      this.navCtrl.push('BookingSummaryPage', {
+        eventID: eventID,
+        seatingChart: this.seatingChart
+      });
+    }
+    else {
+      alert("Please select seats to proceed.");
+      this.navCtrl.push(this.seatingChart, { eventID: this.eventID, seatingChart: this.seatingChart });
+    }
+  }
+
 }

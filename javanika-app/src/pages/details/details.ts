@@ -25,7 +25,8 @@ export class DetailsPage {
   isProceedToBook = false;
   eventID = 0;
   uuid = "";
-  event = {};
+  event: any = {};
+  orderSummaryData: any = null;
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient, private common: CommonProvider, private payPal: PayPal, private device: Device, private loadingCtrl: LoadingController, private alertCtrl: AlertController) {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
@@ -36,12 +37,14 @@ export class DetailsPage {
 
   ionViewDidLoad() {
     this.eventID = this.navParams.get('eventID');
-    this.uuid = this.device.uuid;
+    this.uuid = "unique-devide-id"; //this.device.uuid;
 
-    this.getOrderSummary({
-      eventID: this.eventID,
-      sessionID: this.uuid
-    });
+    this.orderSummaryData = this.navParams.get('orderSummaryData');
+    console.log("orderSummaryData from bookingSummaryPage: ", this.orderSummaryData);
+    // this.getOrderSummary({
+    //   eventID: this.eventID,
+    //   sessionID: this.uuid
+    // });
   }
 
   ionViewCanLeave(): Promise<boolean> {
@@ -99,7 +102,7 @@ export class DetailsPage {
 
     this.http.post(this.common.apiURL + '/OrderSummary', data).subscribe((data: any) => {
       this.event = data;
-
+      console.log("data after api call: ", data);
       loading.dismiss();
     });
   }
@@ -108,6 +111,27 @@ export class DetailsPage {
     this.navCtrl.push('MenuPage')
   }
 
+  overridePP(){
+    // Successfully paid
+    var response = {
+      id: 7777,
+      state: '',
+      intent: '',
+      sessionID: "unique-devide-id", //this.device.uuid,
+      eventID: this.eventID,
+      amount: this.event['TotalPrice'],
+      name: this.name,
+      email: this.email,
+      mobile: this.mobile,
+      ticketType: this.event.ticketType,
+      actualPrice: this.event.actualPrice,
+      discountedAmount: this.event.discountedAmount,
+      priceAfterDiscount: this.event.ticketType,
+      processingFee: this.event.processingFee,
+    };
+
+    this.placeOrder(response);
+  }
   addDetails(form) {
 
     this.isProceedToBook = true;

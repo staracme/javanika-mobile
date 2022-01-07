@@ -12,18 +12,66 @@
 
 
 <ion-content style="margin: 60px 0 0 0;">
+  <div class="seat-holder" *ngIf="hide">
+    <div class="seat-h-header">
+      <div class="toggle-seat-container" (click)="toggleViewSeats()">Click to View Seats ({{selectedSeatsNos.length}})</div>
+    </div>
+    <div class="seat-h-content" [class.d-block]="showSeatContainer"
+    [class.d-none]="!showSeatContainer">
+      <div class="EventSeatHead" [class.swing-in-top-fwd]="showSeatContainer"
+        [class.swing-out-top-bck]="!showSeatContainer">
+        <div>Seat(s) you have chosen:&nbsp;</div>
+        <div id="noSeatSelected" class="d-block">No Seat Selected</div>
+        <div id="seatNumbers">
+          <div class="seatNo" *ngFor="let seatNo of selectedSeatsNos; let i = index">
+            {{seatNo}}
+            <div *ngIf="i != (selectedSeatsNos.length-1)">,</div>
+          </div>
+        </div>
+
+        <div class="summary-table">
+          <table class="TierTbl" border="1">
+            <tbody id="tbody">
+              <tr>
+                <td class="row-header">Total Seats</td>
+                <td class="TierClass" *ngIf="seat_summary != null && seat_summary.NoOfSeats > 0">{{
+                  seat_summary.NoOfSeats }}
+                </td>
+              </tr>
+              <tr>
+                <td class="row-header">Total Cost</td>
+                <td class="TierClass" *ngIf="seat_summary != null && seat_summary.NoOfSeats > 0">${{
+                  seat_summary.TotalPrice }}
+                </td>
+              </tr>
+              <tr *ngIf="seat_summary != null && seat_summary.NoOfSeats == 0">
+                <td rowspan="2" class="TierClass">No Bookings Yet
+                </td>
+              </tr>
+              <!-- <tr>
+            <td class="TierClass" *ngIf="seat_summary != null && seat_summary.NoOfSeats > 0">{{ seat_summary.NoOfSeats }}
+            </td>
+          </tr> -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 
   <div class="EventHead">{{ event_name }}</div>
   <div class="EventLabel2">
     <span>Show time : {{event_date}}</span>
   </div>
-<br>
+  <br>
   <div class="VenueWrapB" style="overflow:scroll;height:auto;">
     <div>
       <div class="Screen">Screen this side</div>
       <div>
         <div class="Drag1">Drag towards right to view seats</div>
-        <div class="Drag2"><img src="assets/DragArrow.png" width="20px" ></div>
+        <div class="Drag2"><img src="assets/DragArrow.png" width="20px"></div>
         <div class="clr"></div>
       </div>
     </div>
@@ -32,19 +80,20 @@
         <ol class="seats" type="A">
           <li class="seat" *ngFor="let s of r.Seats">
             <input type="checkbox" id="{{s.SeatNumber}}" class="chkSeats" value="{{s.SeatID}}"
-              (change)="selectSeat($event,s.SeatID)" [disabled]="s.isBooked" *ngIf="s.Status == 'PRESENT'" />
+              (change)="selectSeat($event,s.SeatID,s.SeatNumber)" [disabled]="s.isBooked"
+              *ngIf="s.Status == 'PRESENT'" />
             <label for="{{s.SeatNumber}}" *ngIf="s.Status == 'PRESENT'">{{s.SeatNumber}}</label>
           </li>
         </ol>
       </li>
     </ol>
-  <br> <br> <br><br> <br> <br>
-</div>
+    <br> <br> <br><br> <br> <br>
+  </div>
 </ion-content>
 
 
-  <div class="EventFootWrap1">
-  <table class="TierTbl" border="1">
+<div class="EventFootWrap1">
+  <!-- <table class="TierTbl" border="1">
     <tr>
       <th>Total Seats</th>
       <th>Total Cost</th>
@@ -56,9 +105,7 @@
         <td class="TierClass"  *ngIf="seat_summary != null && seat_summary.NoOfSeats > 0">{{ seat_summary.TotalPrice }}</td>
       </tr>
     </tbody>
-  </table>
-  <div class="CnfBook" (click)="proceedToBooking(eventID)">Confirm Booking</div>
+  </table> -->
+  <!-- <div class="CnfBook" (click)="proceedToBooking(eventID)">Confirm Booking</div> -->
+  <div class="CnfBook" (click)="proceedToPreConfirm(eventID)">Proceed to Confirm Booking</div>
 </div>
-
-
-

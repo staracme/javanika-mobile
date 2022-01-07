@@ -56,5 +56,6 @@
 </ion-content>
 
 <ion-footer >
-  <div class="EventFootWrap" (click)="goToVenue()">Book Tickets</div>
+  <div *ngIf="!isPastEvent" class="EventFootWrap" (click)="goToVenue()">Book Tickets</div>
+  <div *ngIf="isPastEvent" class="EventFootWrap" (click)="goBack()">Back</div>
 </ion-footer>

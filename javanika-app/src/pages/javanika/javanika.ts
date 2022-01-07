@@ -30,7 +30,6 @@ export class JavanikaPage {
 
 
   getHomePage() {
-    debugger;
     let loading = this.loadingCtrl.create({
       spinner: 'crescent',
       content: 'Loading...',
