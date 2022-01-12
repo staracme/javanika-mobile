@@ -31,17 +31,16 @@ export class DetailsPage {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      mobile: new FormControl('', [Validators.required])
+      mobile: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)])
     });
   }
 
   ionViewDidLoad() {
     this.eventID = this.navParams.get('eventID');
-    this.uuid = "unique-devide-id"; //this.device.uuid;
+    this.uuid = this.device.uuid;
 
     this.orderSummaryData = this.navParams.get('orderSummaryData');
     this.event = this.orderSummaryData;
-    console.log("orderSummaryData from bookingSummaryPage: ", this.orderSummaryData);
     // this.getOrderSummary({
     //   eventID: this.eventID,
     //   sessionID: this.uuid
@@ -139,10 +138,9 @@ export class DetailsPage {
 
     this.payPal.init({
       PayPalEnvironmentProduction: 'AYZg72OmfeJnm88ghZQv7x4opaln2jZ1k6uHnhIYOaMl_RUPLGbutIGi0Gsp8b8NogkMEQuVbj5NBgvX',
-      PayPalEnvironmentSandbox: ''
+      PayPalEnvironmentSandbox: 'AW3y6TJ_eeCUe4f0X1BT33IR2EuHy2IzWuAsHFWtKcoZJd3OsVDZkV3qPvS6J2NUp5JjWSjBxcihAFuU'
     }).then(() => {
       this.payPal.prepareToRender('PayPalEnvironmentProduction', new PayPalConfiguration({
-
       })).then(() => {
         let payment = new PayPalPayment(this.event['TotalPrice'], 'USD', this.event["event_name"], 'sale');
         this.payPal.renderSinglePaymentUI(payment).then((data) => {
@@ -212,5 +210,13 @@ export class DetailsPage {
     });
 
     toast.present();
+  }
+
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
   }
 }

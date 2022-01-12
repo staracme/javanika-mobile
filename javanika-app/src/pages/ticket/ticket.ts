@@ -41,6 +41,10 @@ export class TicketPage {
   }
 
   openMenu() {
-    this.navCtrl.push('MenuPage')
+    this.navCtrl.push('MenuPage');
+  }
+
+  navHome() {
+    this.navCtrl.push('JavanikaPage');
   }
 }

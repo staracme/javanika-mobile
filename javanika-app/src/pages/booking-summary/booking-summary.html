@@ -31,20 +31,22 @@
       <div class="clr"></div>
     </div>
 
-    <div class="OBAmt">
+    <div class="OBAmt" *ngIf="event.discountedAmount > 0">
       <div class="OBLeft">Discounted Amount</div>
       <div class="OBright">- $ {{ event.discountedAmount }}</div>
       <div class="clr"></div>
     </div>
 
-    <div class="OBAmt">
+    <div class="OBAmt" *ngIf="event.discountedAmount > 0">
       <div class="OBLeft">Amount after discount</div>
       <div class="OBright">$ {{ event.SubTotal - event.discountedAmount }}</div>
       <div class="clr"></div>
     </div>
   
     <div class="OBAmt" *ngIf="(event.coupon_code != null && event.coupon_code != '')">
-      <div class="OBLeft">Discount ({{ event.coupon_code }}) <a href="JavaScript:;" (click)="removeCoupon(event.couponID)"><b>X</b></a></div>
+      <div class="OBLeft">Discount ({{ event.coupon_code }}) 
+        <!-- <a href="JavaScript:;" (click)="removeCoupon(event.couponID)"><b>X</b></a> -->
+      </div>
       <div class="OBright">$ {{ event.Discount }}</div>
       <div class="clr"></div>
     </div>

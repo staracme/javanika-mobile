@@ -22,7 +22,7 @@
     </div>
 
     <div class="usernameblock1">Email ID *
-      <input class="cptxtstyle" type="text" formControlName="email" [(ngModel)]="email" />
+      <input class="cptxtstyle" type="email" inputmode="email" formControlName="email" [(ngModel)]="email" />
       <div class="erroremail" *ngIf="form.get('email').touched && form.get('email').hasError('required')">
         Please enter email
       </div>
@@ -32,14 +32,16 @@
     </div>
 
     <div class="usernameblock1">Mobile Number *
-      <input class="cptxtstyle" type="text"  formControlName="mobile" [(ngModel)]="mobile" />
+      <input class="cptxtstyle" type="text"  formControlName="mobile" [(ngModel)]="mobile"
+      (keypress)="numberOnly($event)" inputmode="numeric" minlength="10" maxlength="10" />
       <div class="erroremail" *ngIf="form.get('mobile').touched && form.get('mobile').hasError('required')">
         Please enter mobile
       </div>
     </div>
 
     <div class="buttonblockcp">
-      <!-- <button class="CPbutton" [disabled]="!form.valid" (click)="addDetails(form)">Proceed</button> -->
+      <button class="CPbutton" [disabled]="!form.valid" (click)="addDetails(form)">Proceed</button>
+      <br>
       <button class="CPbutton" [disabled]="!form.valid" (click)="overridePP(form)">overridePP</button>
     </div>
   </form>
