@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { FormControl, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Device } from '@ionic-native/device';
@@ -27,7 +27,7 @@ export class DetailsPage {
   uuid = "";
   event: any = {};
   orderSummaryData: any = null;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient, private common: CommonProvider, private payPal: PayPal, private device: Device, private loadingCtrl: LoadingController, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient, private common: CommonProvider, private payPal: PayPal, private device: Device, private loadingCtrl: LoadingController, private alertCtrl: AlertController, private toastCtrl: ToastController) {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -40,6 +40,7 @@ export class DetailsPage {
     this.uuid = "unique-devide-id"; //this.device.uuid;
 
     this.orderSummaryData = this.navParams.get('orderSummaryData');
+    this.event = this.orderSummaryData;
     console.log("orderSummaryData from bookingSummaryPage: ", this.orderSummaryData);
     // this.getOrderSummary({
     //   eventID: this.eventID,
@@ -111,23 +112,23 @@ export class DetailsPage {
     this.navCtrl.push('MenuPage')
   }
 
-  overridePP(){
+  overridePP() {
     // Successfully paid
     var response = {
       id: 7777,
       state: '',
       intent: '',
-      sessionID: "unique-devide-id", //this.device.uuid,
+      sessionID: "unique-device-id", //this.device.uuid,
       eventID: this.eventID,
       amount: this.event['TotalPrice'],
       name: this.name,
       email: this.email,
       mobile: this.mobile,
-      ticketType: this.event.ticketType,
-      actualPrice: this.event.actualPrice,
+      ticketType: this.event.isEarlyBird,
+      actualPrice: this.event.ActualPrice,
       discountedAmount: this.event.discountedAmount,
-      priceAfterDiscount: this.event.ticketType,
-      processingFee: this.event.processingFee,
+      priceAfterDiscount: this.event.price,
+      processingFee: this.event.processing_fee
     };
 
     this.placeOrder(response);
@@ -135,7 +136,7 @@ export class DetailsPage {
   addDetails(form) {
 
     this.isProceedToBook = true;
-    
+
     this.payPal.init({
       PayPalEnvironmentProduction: 'AYZg72OmfeJnm88ghZQv7x4opaln2jZ1k6uHnhIYOaMl_RUPLGbutIGi0Gsp8b8NogkMEQuVbj5NBgvX',
       PayPalEnvironmentSandbox: ''
@@ -156,7 +157,12 @@ export class DetailsPage {
             amount: this.event['TotalPrice'],
             name: this.name,
             email: this.email,
-            mobile: this.mobile
+            mobile: this.mobile,
+            ticketType: this.event.isEarlyBird,
+            actualPrice: this.event.ActualPrice,
+            discountedAmount: this.event.discountedAmount,
+            priceAfterDiscount: this.event.price,
+            processingFee: this.event.processing_fee
           };
 
           this.placeOrder(response);
@@ -186,11 +192,25 @@ export class DetailsPage {
 
     this.http.post(this.common.apiURL + '/PlaceOrder', data).subscribe((data: any) => {
       if (data.status == "OK") {
-        loading.dismiss();
-        alert("Order placed successfully.");
+        this.presentToast("Order placed successfully.");
         this.common.isProceedToBook = false;
-        this.navCtrl.push('TicketPage', {orderID: data.orderID});
+        this.navCtrl.push('TicketPage', { orderID: data.orderID });
+      } else if (data.status == "FAILED") {
+        this.presentToast("failed.");
+      } else if (data.status == "FATAL") {
+        this.presentToast("Something went wrong.");
       }
+      loading.dismiss();
     });
+  }
+
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'top'
+    });
+
+    toast.present();
   }
 }

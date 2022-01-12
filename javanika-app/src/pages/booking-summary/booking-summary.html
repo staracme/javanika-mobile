@@ -64,7 +64,7 @@
 
   </div>
 
-  <form [formGroup]="form" *ngIf="(event.coupon_code == null || event.coupon_code == '')">
+  <!-- <form [formGroup]="form" *ngIf="(event.coupon_code == null || event.coupon_code == '')">
     <div class="ODBlock">
       <div class="ODLabel">Do you have discount coupon? Please enter your coupon code below....</div>
       <div>
@@ -75,7 +75,7 @@
       </div>
       <div><button (click)="addCoupon()" *ngIf="coupon_loading == false">Add Coupon</button><span *ngIf="coupon_loading == true">Please wait....</span></div>
     </div>
-  </form>
+  </form> -->
 </ion-content>
 <ion-footer>
   <div class="EventFootWrapOD" (click)="goToAddDetailsPage(eventID)">Book Tickets</div>

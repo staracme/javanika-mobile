@@ -1,9 +1,12 @@
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>pre-confirm</ion-title>
-  </ion-navbar>
-
+  <div class="HeaderWrap">
+    <div class="MenuIcon"><a href="JavaScript:;" (click)="openMenu()"><img src="assets/MenuIcon.png"></a></div>
+    <div class="PointsBlock">
+      <span class="PointsHigh">Javanika</span> Entertainments
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div>
 </ion-header>
 
 
@@ -35,19 +38,34 @@
     </table>
   </div>
 
-  <form [formGroup]="form">
-    <div class="ODBlock">
-      <div class="ODLabel">Do you have discount coupon? Please enter your coupon code below....</div>
-      <div>
-        <input type="text" placeholder="Add Discount Code here" class="OBDictxt" formControlName="coupon_code" [(ngModel)]="coupon_code">
-        <div class="erroremail" *ngIf="form.get('coupon_code').touched && form.get('coupon_code').hasError('required')">
-          Please enter coupon code
+  <div class="ODBlock">
+    <form [formGroup]="form">
+      <div class="form-content" *ngIf="!isCouponApplied">
+        <div class="ODLabel">Do you have discount coupon? Please enter your coupon code below....</div>
+        <div>
+          <input type="text" placeholder="Add Discount Code here" class="OBDictxt" formControlName="coupon_code"
+            [(ngModel)]="coupon_code">
+          <div class="erroremail"
+            *ngIf="form.get('coupon_code').touched && form.get('coupon_code').hasError('required')">
+            Please enter coupon code
+          </div>
         </div>
       </div>
-      <div *ngIf="coupon_loading == false && !isCouponApplied"><button (click)="addCoupon()">Add Coupon</button><span *ngIf="coupon_loading == true">Please wait....</span></div>
-      <div *ngIf="coupon_loading == false && isCouponApplied"><button (click)="removeCoupon()">Remove Coupon</button><span *ngIf="coupon_loading == true">Please wait....</span></div>
-    </div>
-  </form>
+      <div class="form-content" *ngIf="isCouponApplied">
+        Coupon Code <strong>{{couponData.coupon_code}}</strong> has been applied.
+      </div>
+      <div class="form-action">
+        <div *ngIf="!isCouponApplied">
+          <button *ngIf="!coupon_loading" (click)="addCoupon()">Add Coupon</button>
+          <div *ngIf="coupon_loading">Please wait....</div>
+        </div>
+        <div *ngIf="isCouponApplied">
+          <button *ngIf="!coupon_loading" (click)="removeCoupon()">Remove Coupon</button>
+          <div *ngIf="coupon_loading">Please wait....</div>
+        </div>
+      </div>
+    </form>
+  </div>
 </ion-content>
 
 <div class="EventFootWrap1">

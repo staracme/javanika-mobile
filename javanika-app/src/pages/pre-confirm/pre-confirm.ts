@@ -32,6 +32,8 @@ export class PreConfirmPage {
 
   seatingChart: string = "";
 
+  couponData: any = null;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -115,6 +117,7 @@ export class PreConfirmPage {
           //   sessionID: "unique-device-id",//this.device.uuid,
           //   eventID: this.eventID
           // });
+          this.couponData = data;
           this.isCouponApplied = true;
           this.coupon_loading = false;
           this.coupon_code = "";
@@ -203,9 +206,9 @@ export class PreConfirmPage {
           handler: () => {
 
             this.http.post(this.common.apiURL + '/RemoveDiscountCoupon', {
-              sessionID: this.device.uuid,
+              sessionID: "unique-device-id", //this.device.uuid,
               eventID: this.eventID,
-              couponID: couponID
+              couponID: this.couponData.CouponID
             }).subscribe((data: any) => {
               if (data.status == "OK") {
                 let alert = this.alertCtrl.create({
@@ -221,6 +224,7 @@ export class PreConfirmPage {
                         //   eventID: this.eventID
                         // });
                         this.isCouponApplied = false;
+                        this.couponData = null;
                         this.coupon_loading = false;
                         this.coupon_code = "";
                         this.form.reset();
@@ -266,6 +270,10 @@ export class PreConfirmPage {
       alert("Please select seats to proceed.");
       this.navCtrl.push(this.seatingChart, { eventID: this.eventID, seatingChart: this.seatingChart });
     }
+  }
+
+  openMenu() {
+    this.navCtrl.push('MenuPage')
   }
 
 }
