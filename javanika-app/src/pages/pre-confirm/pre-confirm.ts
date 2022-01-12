@@ -79,7 +79,7 @@ export class PreConfirmPage {
 
             this.http.post(this.common.apiURL + '/RemoveUnbookedSeats', {
               eventID: this.eventID,
-              uuid: "unique-device-id" //this.device.uuid,
+              uuid: this.device.uuid,
             }).subscribe((response: any) => {
               if (response.status == "OK") {
                 loading.dismiss();
@@ -108,13 +108,13 @@ export class PreConfirmPage {
     if (this.coupon_code != '') {
 
       this.http.post(this.common.apiURL + '/AddDiscountCoupon', {
-        sessionID: "unique-device-id", //this.device.uuid,
+        sessionID: this.device.uuid,
         eventID: this.eventID,
         coupon_code: this.coupon_code
       }).subscribe((data: any) => {
         if (data.status == "OK") {
           // this.getOrderSummary({
-          //   sessionID: "unique-device-id",//this.device.uuid,
+          //   sessionID: this.device.uuid,
           //   eventID: this.eventID
           // });
           this.couponData = data;
@@ -206,7 +206,7 @@ export class PreConfirmPage {
           handler: () => {
 
             this.http.post(this.common.apiURL + '/RemoveDiscountCoupon', {
-              sessionID: "unique-device-id", //this.device.uuid,
+              sessionID: this.device.uuid,
               eventID: this.eventID,
               couponID: this.couponData.CouponID
             }).subscribe((data: any) => {

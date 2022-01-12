@@ -79,7 +79,7 @@ export class V2venuePage {
   selectSeat(event, seatID) {
     if (event.currentTarget.checked) {
       let postData = {
-        "uuid": "unique-device-id", //this.device.uuid,
+        "uuid": this.device.uuid,
         "seatID": seatID,
         "eventID": this.eventID
       };
@@ -118,7 +118,7 @@ export class V2venuePage {
   addSeat(seatID, eventID) {
 
     let postData = {
-      "uuid": "unique-device-id", //this.device.uuid,
+      "uuid": this.device.uuid,
       "seatID": seatID,
       "eventID": this.eventID
     }
@@ -131,7 +131,7 @@ export class V2venuePage {
   removeSeat(seatID) {
     this.http.post(this.common.apiURL + '/RemoveSeat', { 
       eventID: this.eventID, 
-      uuid: "unique-device-id", //this.device.uuid, 
+      uuid: this.device.uuid, 
       seatID: seatID }).subscribe((data: any) => {
       this.seat_summary = data;
     });

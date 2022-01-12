@@ -118,7 +118,7 @@ export class DetailsPage {
       id: 7777,
       state: '',
       intent: '',
-      sessionID: "unique-device-id", //this.device.uuid,
+      sessionID: this.device.uuid,
       eventID: this.eventID,
       amount: this.event['TotalPrice'],
       name: this.name,
